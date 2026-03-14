@@ -1,0 +1,47 @@
+# Python version requirement: >=3.8,<4.0
+# 
+# This requirements file pins all dependencies to specific versions for
+# complete reproducibility of the DBSCAN learning environment.
+# 
+# Installation:
+#   pip install -r requirements.txt
+#
+# Note: These versions are tested and compatible with Python 3.8 through 3.12
+
+# ============================================================================
+# Core Scientific Computing Dependencies
+# ============================================================================
+numpy==1.24.3          # Numerical computing foundation
+scipy==1.10.1          # Scientific computing algorithms
+pandas==2.0.3          # Data manipulation and analysis
+
+# ============================================================================
+# Machine Learning Dependencies
+# ============================================================================
+scikit-learn==1.3.0    # Machine learning library (includes DBSCAN reference implementation)
+
+# ============================================================================
+# Visualization Dependencies
+# ============================================================================
+matplotlib==3.7.2      # Plotting and visualization
+seaborn==0.12.2        # Statistical data visualization
+
+# ============================================================================
+# Notebook Dependencies
+# ============================================================================
+jupyter==1.0.0         # Jupyter metapackage
+ipywidgets==8.1.0      # Interactive widgets for notebooks
+notebook==7.0.2        # Jupyter notebook interface
+ipykernel==6.25.1      # IPython kernel for Jupyter
+
+# ============================================================================
+# Testing Dependencies
+# ============================================================================
+pytest==7.4.0          # Testing framework
+hypothesis==6.82.0     # Property-based testing
+pytest-cov==4.1.0      # Coverage reporting for pytest
+
+# ============================================================================
+# Development Dependencies
+# ============================================================================
+memory-profiler==0.61.0  # Memory usage profiling

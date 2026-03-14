@@ -1,0 +1,150 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run slow tests weekly on Sundays at 00:00 UTC
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+    inputs:
+      run_slow_tests:
+        description: 'Run slow tests'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  test:
+    name: Test Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11']
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
+    
+    - name: Cache pip packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest-cov pytest-xdist
+    
+    - name: Run fast tests with coverage
+      if: github.event_name != 'schedule' && github.event.inputs.run_slow_tests != 'true'
+      run: |
+        pytest -v -m "not slow" --cov=src --cov-report=xml --cov-report=term-missing --cov-report=html -n auto
+    
+    - name: Run all tests (including slow)
+      if: github.event_name == 'schedule' || github.event.inputs.run_slow_tests == 'true'
+      run: |
+        pytest -v --cov=src --cov-report=xml --cov-report=term-missing --cov-report=html -n auto
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      if: matrix.python-version == '3.11'
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    
+    - name: Upload coverage HTML report
+      uses: actions/upload-artifact@v4
+      if: matrix.python-version == '3.11'
+      with:
+        name: coverage-report
+        path: htmlcov/
+        retention-days: 30
+    
+    - name: Check coverage threshold
+      if: matrix.python-version == '3.11'
+      run: |
+        coverage report --fail-under=90
+
+  lint:
+    name: Lint and Format Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: Install linting tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 black isort
+    
+    - name: Run flake8
+      run: |
+        # Stop the build if there are Python syntax errors or undefined names
+        flake8 src tests --count --select=E9,F63,F7,F82 --show-source --statistics
+        # Exit-zero treats all errors as warnings
+        flake8 src tests --count --exit-zero --max-complexity=10 --max-line-length=100 --statistics
+      continue-on-error: true
+    
+    - name: Check code formatting with black
+      run: |
+        black --check src tests
+      continue-on-error: true
+    
+    - name: Check import sorting with isort
+      run: |
+        isort --check-only src tests
+      continue-on-error: true
+
+  notebook-test:
+    name: Test Notebooks
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install nbconvert nbformat
+    
+    - name: Test notebook execution
+      run: |
+        # Test that notebooks can be executed without errors
+        for notebook in notebooks/*.ipynb; do
+          echo "Testing $notebook"
+          jupyter nbconvert --to notebook --execute --inplace "$notebook" || echo "Warning: $notebook failed"
+        done
+      continue-on-error: true

@@ -1,0 +1,97 @@
+MIT License with Research Attribution
+
+Copyright (c) 2026 Jainan, C.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+## RESEARCH ATTRIBUTION
+
+This repository contains educational materials and research implementations based on:
+
+1. **Original DBSCAN Algorithm**: 
+   Ester, M., Kriegel, H. P., Sander, J., & Xu, X. (1996). 
+   "A density-based algorithm for discovering clusters in large spatial databases with noise." 
+   In Proceedings of the Second International Conference on Knowledge Discovery and Data Mining (KDD-96), 
+   pages 226-231. AAAI Press.
+
+2. **Research Materials**: 
+   Some datasets and research methodologies may have been derived from or inspired by 
+   materials available from biolab.si and other academic institutions. Users are 
+   encouraged to verify the original sources of any specific datasets or research 
+   materials they intend to use for academic or commercial purposes.
+
+## TERMS OF USE
+
+### Educational Use
+- This repository is primarily intended for educational and research purposes
+- All implementations are provided for learning and understanding the DBSCAN algorithm
+- Users are encouraged to cite the original DBSCAN paper when using this material academically
+
+### Research and Academic Use
+- When using this repository for academic research, please:
+  - Cite the original DBSCAN paper (Ester et al., 1996)
+  - Acknowledge this repository if it significantly contributed to your work
+  - Verify and cite original sources for any specific datasets used
+  - Follow your institution's guidelines for software and data attribution
+
+### Commercial Use
+- Commercial use is permitted under the MIT license terms
+- Users should independently verify the licensing terms of any datasets used
+- No warranty is provided for commercial applications
+
+### Data Attribution
+- Real-world datasets included in this repository may have specific attribution requirements
+- Users are responsible for verifying the original sources and licensing terms of datasets
+- Some datasets may be synthetic or derived from publicly available sources
+- When in doubt, contact the repository maintainers for clarification on data sources
+
+### Modifications and Derivatives
+- Modifications and derivative works are permitted under MIT license terms
+- Please maintain attribution to original sources when creating derivative works
+- Consider contributing improvements back to the community
+
+## DISCLAIMER
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+## ACADEMIC INTEGRITY
+
+Users of this repository for academic purposes are expected to:
+- Follow their institution's academic integrity policies
+- Properly cite all sources, including this repository when appropriate
+- Not present the work contained herein as their own original research
+- Understand the algorithms and concepts rather than simply copying code
+
+## CONTACT
+
+For questions about licensing, attribution, or data sources, please:
+- Open an issue on the GitHub repository
+- Contact the repository maintainers
+- Consult the original paper and cited sources for authoritative information
+
+## ACKNOWLEDGMENTS
+
+This repository acknowledges:
+- The original DBSCAN research team (Ester, Kriegel, Sander, Xu)
+- The broader clustering and data mining research community
+- Academic institutions and researchers who have contributed to DBSCAN understanding
+- Open source contributors and the educational community
+
+---
+
+Last updated: 2026
+Repository: https://github.com/AppleBoiy/intro-to-DBSCAN
